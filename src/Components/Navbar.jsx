@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <>
-
       <nav className="navbar navbar-expand-lg bg-secondary bg-gradient">
         <div className="container d-flex h-auto ">
-        
-
           <div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -21,19 +18,9 @@ export default function Navbar() {
                   Register
                 </Link>
               </li>
-
-
-    
-
-
-
             </ul>
           </div>
-
-
-
         </div>
-
       </nav>
     </>
   );
