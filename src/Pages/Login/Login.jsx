@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Bounce, toast } from "react-toastify";
+import axios from "axios";
 
 export default function Login() {
     const navigate = useNavigate()
@@ -12,29 +13,58 @@ export default function Login() {
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().min(8, "Password must be at least 8 characters")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
     .required("Password is required"),
   });
 
-  const handleForm = () => {
-    
-    toast.success('login succesfuly', {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
+  const handleForm = async (values) => {
+    try {
+      const response = await axios.post(
+        'https://ecommercent.runasp.net/api/User/login', 
+        {
+          email: values.email,
+          password: values.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'  // This sets the request to send JSON data
+          }
+        }
+      );
+      console.log(response.data);
+  
+      toast.success('Login successfully', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
       });
-
-      navigate('/')
-
+    } catch (error) {
+      console.error('Registration error:', error);
+      
+      if (error.response && error.response.data) {
+       
+          toast.error(`${error.response.data}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        ;
+      } else {
+        // Generic error message
+        toast.error('Registration failed');
+      }
+    }
   };
 
   let formik = useFormik({
@@ -44,7 +74,7 @@ export default function Login() {
     },
     validationSchema,
     onSubmit: (values) => {
-      handleForm()
+      handleForm(values)
     },
     validateOnChange: false,
     validateOnBlur: false,
@@ -81,13 +111,14 @@ export default function Login() {
             {formik.touched.password && formik.errors.password ? (
                 <div className={style.error}>{formik.errors.password}</div>
               ) : null}
+              <div className={style["forgot"]}>
+            <a href="">Forgot Password</a>
+          </div>
           </div>
 
-          <div className={style["forgot"]}>
-            <a href="">Forgor Password</a>
-          </div>
+          
 
-          <button type="submit">Login</button>
+          <button type="submit" className="mt-4">Login</button>
 
           <div className={style["register-link"]}>
             <p>
