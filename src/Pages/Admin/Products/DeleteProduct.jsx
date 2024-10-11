@@ -15,7 +15,7 @@ export default function DeleteProduct() {
       const response = await axios.delete(`https://ecommercent.runasp.net/api/Product/${productId}`);
  
       if (response.status === 204) {
-        toast.success("deleted done.", {
+        toast.success("Product has been successfully deleted.", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,

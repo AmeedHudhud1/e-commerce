@@ -21,7 +21,7 @@ export default function AdminNavbar({ setRole }) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active ms-3 text-white fw-bold" aria-current="page" to="/admin/products">
+              <Link className="nav-link active ms-3 text-white fw-bold" aria-current="page" to="/admin/categorys">
                 Categories
               </Link>
             </li>
