@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./Register.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Bounce, toast } from "react-toastify";
@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default function Register() {
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
   const validationSchema = Yup.object({
     userName: Yup.string()
       .min(5, "Must be at least 5 characters")
