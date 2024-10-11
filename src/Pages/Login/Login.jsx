@@ -51,7 +51,16 @@ export default function Login() {
       console.log("token is : " + token);
       const decodedToken = jwtDecode(token);
       console.log("Decoded Token:", decodedToken.role);
-      // navigate('/')
+
+      localStorage.setItem("token",token)
+      localStorage.setItem('role',decodedToken.role)
+      // localStorage.setItem('role',decodedToken.role)
+
+      if(decodedToken.role==="User")
+      navigate('/')
+    else if (decodedToken.role==="Admin")
+    navigate('/admin/products')
+
     } catch (error) {
       setLoader(false);
       console.error("Login error:", error);
