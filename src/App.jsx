@@ -11,11 +11,14 @@ import AdminRoot from './Route/AdminRoot';
 import Products from './Pages/Admin/Products/Products';
 import Orders from './Pages/Admin/Orders';
 import Profile from './Pages/Profile';
-import RoleToggleButton from './Components/RoleToggleButton ';
 import UserContextProvider, { UserContext } from './context/User';
 import AddProduct from './Pages/Admin/Products/addProduct';
 import UpdateProduct from './Pages/Admin/Products/updateProduct';
 import DeleteProduct from './Pages/Admin/Products/deleteProduct';
+import Categorys from './Pages/Admin/Categorys/Categorys';
+import AddCategory from './Pages/Admin/Categorys/AddCategory';
+import UpdateCategory from './Pages/Admin/Categorys/UpdateCategory';
+import DeleteCategory from './Pages/Admin/Categorys/DeleteCategory';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -69,6 +72,22 @@ const App = () => {
         {
           path: '/admin/product/delete',
           element: <DeleteProduct/>
+        },
+        {
+          path: '/admin/categorys',
+          element: <Categorys />,
+        },
+        {
+          path: '/admin/category/add',
+          element: <AddCategory/>
+        },
+        {
+          path: '/admin/category/update',
+          element: <UpdateCategory/>
+        },
+        {
+          path: '/admin/category/delete',
+          element: <DeleteCategory/>
         },
        
       ],
