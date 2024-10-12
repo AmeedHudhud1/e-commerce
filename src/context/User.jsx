@@ -6,7 +6,7 @@ const UserContextProvider = ({children}) => {
 
     const [token, setToken] = useState(localStorage.getItem('token'))
     const [user, setUser] = useState({})
-    const [role, setRole] = useState()
+    const [role, setRole] = useState('')
 
    const getUserData = () =>{
         if(token!=null){
