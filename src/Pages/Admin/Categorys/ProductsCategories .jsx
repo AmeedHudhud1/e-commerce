@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import Loader from "../../../Components/loader/loader";
+import Loader from "../../../Components/loader/Loader";
 
 export default function ProductsCategories() {
   const [products, setProducts] = useState([]);
