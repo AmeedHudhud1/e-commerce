@@ -131,6 +131,49 @@
     background-color: rgba(255, 255, 255, 0.1); 
 }
 
+/* Style for the select element */
+.wrapper select {
+    width: 100%;
+    height: 50px; /* Match the height of the input boxes */
+    background-color: transparent; /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Same border style as input */
+    border-radius: 10px; /* Same border-radius as input */
+    font-size: 16px; /* Same font size */
+    color: white; /* Text color */
+    padding: 10px; /* Adjust padding for better spacing */
+    transition: border 0.3s ease, background-color 0.3s ease; /* Transition effects */
+}
+
+/* Focus and hover effects for select */
+.wrapper select:hover {
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Change border color on hover */
+}
+
+.wrapper select:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid rgba(255, 255, 255, 1); /* Change border color on focus */
+    background-color: rgba(255, 255, 255, 0.1); /* Background on focus */
+}
+
+/* Option styling (not all browsers support this) */
+.wrapper select option {
+    color: black; /* Text color for options */
+    background-color: white; /* Background color for options */
+}
+
+/* Adjust select styling for different screen sizes */
+@media (max-width: 768px) {
+    .wrapper select {
+        height: 45px; /* Slightly reduce height for smaller devices */
+    }
+}
+
+@media (max-width: 576px) {
+    .wrapper select {
+        height: 40px; /* Further reduce height for mobile devices */
+    }
+}
+
 
 @media (max-width: 768px) {
     .wrapper {

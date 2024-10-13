@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Products.module.css";
 import axios from "axios";
@@ -8,21 +8,24 @@ import { Bounce, toast } from "react-toastify";
 
 export default function UpdateProduct() {
   const [productId, setProductId] = useState("");
-  const [showForm, setShowForm] = useState(false); // Control form visibility
+  const [showForm, setShowForm] = useState(false); 
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://ecommercent.runasp.net/api/Product/${productId}`);
+      const response = await axios.get(
+        `https://ecommercent.runasp.net/api/Product/${productId}`
+      );
       if (response.data) {
         const product = response.data.product;
-        formik.setValues({ 
+        console.group("product : " + product);
+        formik.setValues({
           name: product.name || "",
           price: product.price || "",
           description: product.description || "",
           category: product.category || "",
           stock: product.stock || "",
         });
-        setShowForm(true); // Show the form once product is found
+        setShowForm(true);
         toast.success("Product found. You can now update it.", {
           position: "top-right",
           autoClose: 2000,
@@ -52,12 +55,13 @@ export default function UpdateProduct() {
   };
 
   const handleForm = async (values) => {
+    console.log(values);
     try {
       const response = await axios.put(
         `https://ecommercent.runasp.net/api/Product/${productId}`,
         values
       );
-      console.log(response)
+      console.log(response);
       if (response.status === 200) {
         toast.success("Product updated successfully", {
           position: "top-right",
@@ -94,10 +98,6 @@ export default function UpdateProduct() {
       .positive("Price must be greater than 0")
       .required("Product price is required"),
     description: Yup.string().required("Product description is required"),
-    category: Yup.number()
-      .typeError("Category ID must be a number")
-      .positive("Category ID must be greater than 0")
-      .required("Category ID is required"),
     stock: Yup.number()
       .typeError("Stock must be a number")
       .integer("Stock must be an integer")
@@ -110,7 +110,7 @@ export default function UpdateProduct() {
       name: "",
       price: "",
       description: "",
-      category: "",
+      categoryName: "",
       stock: "",
     },
     validationSchema,
@@ -120,20 +120,44 @@ export default function UpdateProduct() {
   });
 
   return (
-    <div className="container-fluid bg-dark-subtle" style={{ minHeight: "500px" }}>
+    <div
+      className="container-fluid bg-dark-subtle"
+      style={{ minHeight: "500px" }}
+    >
       <div className="row">
-        {/* Sidebar Section */}
-        <div className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm" style={{ minHeight: "500px" }}>
+        <div
+          className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm"
+          style={{ minHeight: "500px" }}
+        >
           <h5 className="mb-4 font-weight-bold text-primary">Products</h5>
           <ul className="list-group">
-            <Link to="/admin/products" className="list-group-item list-group-item-action text-decoration-none">All Products</Link>
-            <Link to="/admin/product/add" className="list-group-item list-group-item-action text-decoration-none">Add Product</Link>
-            <Link to="/admin/product/update" className="list-group-item list-group-item-action text-decoration-none">Update Product</Link>
-            <Link to="/admin/product/delete" className="list-group-item list-group-item-action text-decoration-none">Delete Product</Link>
+            <Link
+              to="/admin/products"
+              className="list-group-item list-group-item-action text-decoration-none"
+            >
+              All Products
+            </Link>
+            <Link
+              to="/admin/product/add"
+              className="list-group-item list-group-item-action text-decoration-none"
+            >
+              Add Product
+            </Link>
+            <Link
+              to="/admin/product/update"
+              className="list-group-item list-group-item-action text-decoration-none"
+            >
+              Update Product
+            </Link>
+            <Link
+              to="/admin/product/delete"
+              className="list-group-item list-group-item-action text-decoration-none"
+            >
+              Delete Product
+            </Link>
           </ul>
         </div>
 
-        {/* Products Section */}
         <div className="col-md-9 products-section">
           {!showForm ? (
             <div className={`${style.main} bg-dark-subtle`}>
@@ -148,11 +172,13 @@ export default function UpdateProduct() {
                     id="productId"
                   />
                 </div>
-                <button onClick={fetchData} className="mt-4">Fetch Product</button>
+                <button onClick={fetchData} className="mt-4">
+                  Fetch Product
+                </button>
               </div>
             </div>
           ) : (
-            <div className={`${style.main} bg-dark-subtle`} >
+            <div className={`${style.main} bg-dark-subtle`}>
               <div className={`${style.wrapper} bg-secondary bg-gradient`}>
                 <form onSubmit={formik.handleSubmit}>
                   <h1>Update Product</h1>
@@ -195,21 +221,32 @@ export default function UpdateProduct() {
                       id="description"
                     />
                     {formik.touched.description && formik.errors.description ? (
-                      <div className={style.error}>{formik.errors.description}</div>
+                      <div className={style.error}>
+                        {formik.errors.description}
+                      </div>
                     ) : null}
                   </div>
 
                   <div className={style["input-box"]}>
-                    <input
-                      type="text"
-                      placeholder="Category ID"
-                      value={formik.values.category}
+                    <select
+                      value={formik.values.categoryName}
                       onChange={formik.handleChange}
                       name="category"
                       id="category"
-                    />
+                    >
+                      <option value="" disabled>
+                        Select Category
+                      </option>{" "}
+                      <option value="2">Beauty</option>
+                      <option value="3">Clothes</option>
+                      <option value="4">Kitchen</option>
+                      <option value="5">Phone</option>
+                      <option value="6">Toys</option>
+                    </select>
                     {formik.touched.category && formik.errors.category ? (
-                      <div className={style.error}>{formik.errors.category}</div>
+                      <div className={style.error}>
+                        {formik.errors.category}
+                      </div>
                     ) : null}
                   </div>
 
@@ -227,7 +264,9 @@ export default function UpdateProduct() {
                     ) : null}
                   </div>
 
-                  <button type="submit" className="mt-4">Update Product</button>
+                  <button type="submit" className="mt-4">
+                    Update Product
+                  </button>
                 </form>
               </div>
             </div>

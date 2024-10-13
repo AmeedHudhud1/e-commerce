@@ -7,7 +7,6 @@ import * as Yup from "yup";
 import { Bounce, toast } from "react-toastify";
 
 export default function AddProduct() {
-
   const handleForm = async (values) => {
     console.log(values);
     const formData = new FormData();
@@ -16,8 +15,8 @@ export default function AddProduct() {
     formData.append("Description", values.description);
     formData.append("CategoryId", values.category);
     formData.append("Stock", values.stock);
-    formData.append("Image", values.image); // Ensure this is a valid file object
-    
+    formData.append("Image", values.image); 
+
     try {
       const response = await axios.post(
         `https://ecommercent.runasp.net/api/Product`,
@@ -28,8 +27,7 @@ export default function AddProduct() {
           },
         }
       );
-      
-      // Make sure response is successful before proceeding
+
       if (response.status === 201) {
         toast.success("Product is created successfully", {
           position: "top-right",
@@ -58,40 +56,39 @@ export default function AddProduct() {
           theme: "light",
           transition: Bounce,
         });
-      }else{
-        toast.error("Error In Create Product")
+      } else {
+        toast.error("Error In Create Product");
       }
     }
   };
-  
-  
+
   const validationSchema = Yup.object({
-    name: Yup.string().required("Product name is required"), // Corrected key
+    name: Yup.string().required("Product name is required"),
     price: Yup.number()
       .typeError("Price must be a number")
       .positive("Price must be greater than 0")
-      .required("Product price is required"), // Corrected key
-    description: Yup.string().required("Product description is required"), // Corrected key
+      .required("Product price is required"),
+    description: Yup.string().required("Product description is required"),
     category: Yup.number()
       .typeError("Category ID must be a number")
       .positive("Category ID must be greater than 0")
-      .required("Category ID is required"), // Corrected key
+      .required("Category ID is required"),
     stock: Yup.number()
       .typeError("Stock must be a number")
       .integer("Stock must be an integer")
       .min(0, "Stock cannot be negative")
-      .required("Stock is required"), // Corrected key
-    image: Yup.mixed().required("Product image is required"), // Corrected key
+      .required("Stock is required"),
+    image: Yup.mixed().required("Product image is required"),
   });
 
   let formik = useFormik({
     initialValues: {
-      name: "", // Corrected key
-      price: "", // Corrected key
-      description: "", // Corrected key
-      category: "", // Corrected key
-      stock: "", // Corrected key
-      image: null, // Corrected key
+      name: "",
+      price: "",
+      description: "",
+      category: "",
+      stock: "",
+      image: null,
     },
     validationSchema,
     onSubmit: (values) => {
@@ -104,7 +101,6 @@ export default function AddProduct() {
   return (
     <div className="container-fluid">
       <div className="row">
-        {/* Sidebar Section */}
         <div className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm">
           <h5 className="mb-4 font-weight-bold text-primary">Products</h5>
           <ul className="list-group">
@@ -135,7 +131,6 @@ export default function AddProduct() {
           </ul>
         </div>
 
-        {/* Products Section */}
         <div className="col-md-9 products-section">
           <div className={`${style.main} bg-dark-subtle`}>
             <div className={`${style.wrapper} bg-secondary bg-gradient`}>
@@ -146,42 +141,44 @@ export default function AddProduct() {
                   <input
                     type="text"
                     placeholder="Product Name"
-                    value={formik.values.name} // Corrected key
+                    value={formik.values.name}
                     onChange={formik.handleChange}
-                    name="name" // Corrected key
-                    id="name" // Optional but helpful for form identification
+                    name="name"
+                    id="name"
                   />
                   {formik.touched.name && formik.errors.name ? (
-              <div className={style.error}>{formik.errors.name}</div>
-            ) : null}
+                    <div className={style.error}>{formik.errors.name}</div>
+                  ) : null}
                 </div>
 
                 <div className={style["input-box"]}>
                   <input
                     type="text"
                     placeholder="Product Price"
-                    value={formik.values.price} // Corrected key
+                    value={formik.values.price}
                     onChange={formik.handleChange}
-                    name="price" // Corrected key
+                    name="price"
                     id="price"
                   />
                   {formik.touched.price && formik.errors.emapriceil ? (
-              <div className={style.error}>{formik.errors.price}</div>
-            ) : null}
+                    <div className={style.error}>{formik.errors.price}</div>
+                  ) : null}
                 </div>
 
                 <div className={style["input-box"]}>
                   <input
                     type="text"
                     placeholder="Product Description"
-                    value={formik.values.description} // Corrected key
+                    value={formik.values.description}
                     onChange={formik.handleChange}
-                    name="description" // Corrected key
+                    name="description"
                     id="description"
                   />
                   {formik.touched.description && formik.errors.description ? (
-              <div className={style.error}>{formik.errors.description}</div>
-            ) : null}
+                    <div className={style.error}>
+                      {formik.errors.description}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className={style["input-box"]}>
@@ -193,7 +190,7 @@ export default function AddProduct() {
                   </label>
                   <input
                     type="file"
-                    name="image" // Corrected key
+                    name="image"
                     id="image"
                     accept="image/*"
                     className={style["file-input"]}
@@ -202,36 +199,43 @@ export default function AddProduct() {
                     }
                   />
                   {formik.touched.image && formik.errors.image ? (
-              <div className={style.error}>{formik.errors.image}</div>
-            ) : null}
+                    <div className={style.error}>{formik.errors.image}</div>
+                  ) : null}
                 </div>
 
                 <div className={style["input-box"]}>
-                  <input
-                    type="text"
-                    placeholder="Category ID"
-                    value={formik.values.category} // Corrected key
+                  <select
+                    value={formik.values.category}
                     onChange={formik.handleChange}
-                    name="category" // Corrected key
+                    name="category"
                     id="category"
-                  />
+                  >
+                    <option value="" disabled>
+                      Select Category
+                    </option>{" "}
+                    <option value="2">Beauty</option>
+                    <option value="3">Clothes</option>
+                    <option value="4">Kitchen</option>
+                    <option value="5">Phone</option>
+                    <option value="6">Toys</option>
+                  </select>
                   {formik.touched.category && formik.errors.category ? (
-              <div className={style.error}>{formik.errors.category}</div>
-            ) : null}
+                    <div className={style.error}>{formik.errors.category}</div>
+                  ) : null}
                 </div>
 
                 <div className={style["input-box"]}>
                   <input
                     type="text"
                     placeholder="Stock"
-                    value={formik.values.stock} // Corrected key
+                    value={formik.values.stock}
                     onChange={formik.handleChange}
-                    name="stock" // Corrected key
+                    name="stock"
                     id="stock"
                   />
                   {formik.touched.stock && formik.errors.stock ? (
-              <div className={style.error}>{formik.errors.stock}</div>
-            ) : null}
+                    <div className={style.error}>{formik.errors.stock}</div>
+                  ) : null}
                 </div>
 
                 <button type="submit" className="mt-4">

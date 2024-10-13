@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../../Components/loader/loader";
 
-export default function Products() {
+export default function ProductsCategories() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -14,10 +14,10 @@ export default function Products() {
   const [ascendingOrder, setAscendingOrder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { Name } = useParams();
   const fetchData = async (
     pageNumber,
     priceFilter,
-    categoryFilter,
     sortOptionFilter,
     orderFilter
   ) => {
@@ -31,7 +31,7 @@ export default function Products() {
             PageNumber: pageNumber,
             PageSize: 6,
             Price: priceFilter || null,
-            Category: categoryFilter || null,
+            Category: Name || null,
             SortBy: sortOptionFilter || null,
             IsDesc: orderFilter || null,
           },
@@ -49,11 +49,11 @@ export default function Products() {
   };
 
   useEffect(() => {
-    fetchData(currentPage, price, category, sortOption, ascendingOrder);
+    fetchData(currentPage, price, sortOption, ascendingOrder);
   }, [currentPage, name]);
 
   const handleApplyFilters = () => {
-    fetchData(1, price, category, sortOption, ascendingOrder);
+    fetchData(1, price, sortOption, ascendingOrder);
     setCurrentPage(1);
   };
 
@@ -65,35 +65,7 @@ export default function Products() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm">
-          <h5 className="mb-4 font-weight-bold text-primary">Products</h5>
-          <ul className="list-group">
-            <Link
-              to="/admin/products"
-              className="list-group-item list-group-item-action text-decoration-none"
-            >
-              All Products
-            </Link>
-            <Link
-              to="/admin/product/add"
-              className="list-group-item list-group-item-action text-decoration-none"
-            >
-              Add Product
-            </Link>
-            <Link
-              to="/admin/product/update"
-              className="list-group-item list-group-item-action text-decoration-none"
-            >
-              Update Product
-            </Link>
-            <Link
-              to="/admin/product/delete"
-              className="list-group-item list-group-item-action text-decoration-none"
-            >
-              Delete Product
-            </Link>
-          </ul>
-
-          <h5 className="mb-4 mt-5 font-weight-bold text-primary">Filter</h5>
+          <h5 className="mb-4 font-weight-bold text-primary">Filter</h5>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Name
@@ -124,42 +96,6 @@ export default function Products() {
               Enter a price to display products that are equal to or less than
               this value.
             </small>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="category" className="form-label">
-              Category
-            </label>
-            <select
-              id="category"
-              className="form-select mb-3"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">--</option>
-              <option value="beauty">Beauty</option>
-              <option value="clothes">Clothes</option>
-              <option value="kitchen">Kitchen</option>
-              <option value="phone">Phone</option>
-              <option value="toys">Toys</option>
-            </select>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="sortOptions" className="form-label">
-              Sorted By
-            </label>
-            <select
-              id="sortOptions"
-              className="form-select mb-3"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-            >
-              <option value="">--</option>
-              <option value="Name">Name</option>
-              <option value="Price">Price</option>
-              <option value="Rating">Rating</option>
-            </select>
           </div>
 
           <div className="mb-3">

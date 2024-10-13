@@ -19,6 +19,7 @@ import Categorys from './Pages/Admin/Categorys/Categorys';
 import AddCategory from './Pages/Admin/Categorys/AddCategory';
 import UpdateCategory from './Pages/Admin/Categorys/UpdateCategory';
 import DeleteCategory from './Pages/Admin/Categorys/DeleteCategory';
+import ProductsCategories from './Pages/Admin/Categorys/ProductsCategories ';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -89,7 +90,10 @@ const App = () => {
           path: '/admin/category/delete',
           element: <DeleteCategory/>
         },
-       
+        {
+          path: '/admin/category/products/:Name',
+          element: <ProductsCategories/>
+        },
       ],
     },
   ]);
@@ -99,8 +103,6 @@ const App = () => {
     <UserContextProvider>
       <RouterProvider router={router} />
     </UserContextProvider>
-      
-      
       <ToastContainer />
     </>
   );
