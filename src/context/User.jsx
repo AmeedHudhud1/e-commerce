@@ -14,6 +14,7 @@ const UserContextProvider = ({children}) => {
             setRole(decodedToken.role);
         }else{
             console.log('not token')
+            setRole(" ")
         }
     }
 
