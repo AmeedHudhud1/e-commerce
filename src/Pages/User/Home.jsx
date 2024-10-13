@@ -1,5 +1,5 @@
 import React from 'react'
-import Loader from '../../Components/loader/loader'
+import Loader from '../../Components/loader/Loader'
 
 export default function Home() {
   return (
