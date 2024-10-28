@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -6,8 +6,10 @@ import * as Yup from "yup";
 import { Bounce, toast } from "react-toastify";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { UserContext } from "../../context/User";
 
 export default function Login() {
+  const { setRole2,setRole } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const validationSchema = Yup.object({
@@ -51,7 +53,8 @@ export default function Login() {
       console.log("token is : " + token);
       const decodedToken = jwtDecode(token);
       console.log("Decoded Token:", decodedToken.role);
-
+      setRole2(decodedToken.role)
+      setRole(decodedToken.role)
       localStorage.setItem("token",token)
       localStorage.setItem('role',decodedToken.role)
       // localStorage.setItem('role',decodedToken.role)
@@ -59,13 +62,13 @@ export default function Login() {
       if(decodedToken.role==="User")
       navigate('/')
     else if (decodedToken.role==="Admin")
-    navigate('/admin/products')
+    navigate('/products')
 
     } catch (error) {
       setLoader(false);
       console.error("Login error:", error);
       if (error.response && error.response.data) {
-        toast.error(`${error.response.data}`, {
+        toast.error(`${error.response.data.error}`, {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
