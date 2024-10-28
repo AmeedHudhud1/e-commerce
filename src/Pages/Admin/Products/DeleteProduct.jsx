@@ -57,25 +57,25 @@ export default function DeleteProduct() {
           <h5 className="mb-4 font-weight-bold text-primary">Products</h5>
           <ul className="list-group">
             <Link
-              to="/admin/products"
+              to="/products"
               className="list-group-item list-group-item-action text-decoration-none"
             >
               All Products
             </Link>
             <Link
-              to="/admin/product/add"
+              to="/product/add"
               className="list-group-item list-group-item-action text-decoration-none"
             >
               Add Product
             </Link>
             <Link
-              to="/admin/product/update"
+              to="/product/update"
               className="list-group-item list-group-item-action text-decoration-none"
             >
               Update Product
             </Link>
             <Link
-              to="/admin/product/delete"
+              to="/product/delete"
               className="list-group-item list-group-item-action text-decoration-none"
             >
               Delete Product

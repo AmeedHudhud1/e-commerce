@@ -84,16 +84,16 @@ export default function AddCategory() {
           <div className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm">
           <h5 className="mb-4 font-weight-bold text-primary">Categories</h5>
           <ul className="list-group">
-            <Link to="/admin/categorys" className="list-group-item list-group-item-action text-decoration-none">
+            <Link to="/categorys" className="list-group-item list-group-item-action text-decoration-none">
               All Categories
             </Link>
-            <Link to="/admin/category/add" className="list-group-item list-group-item-action text-decoration-none">
+            <Link to="/category/add" className="list-group-item list-group-item-action text-decoration-none">
               Add Categorie
             </Link>
-            <Link to="/admin/category/update" className="list-group-item list-group-item-action text-decoration-none">
+            <Link to="/category/update" className="list-group-item list-group-item-action text-decoration-none">
               Update Categorie
             </Link>
-            <Link to="/admin/category/delete" className="list-group-item list-group-item-action text-decoration-none">
+            <Link to="/category/delete" className="list-group-item list-group-item-action text-decoration-none">
               Delete Categorie
             </Link>
           </ul>
