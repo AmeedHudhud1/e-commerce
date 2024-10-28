@@ -20,6 +20,7 @@ import AddCategory from './Pages/Admin/Categorys/AddCategory';
 import UpdateCategory from './Pages/Admin/Categorys/UpdateCategory';
 import DeleteCategory from './Pages/Admin/Categorys/DeleteCategory';
 import ProductsCategories from './Pages/Admin/Categorys/ProductsCategories ';
+import ProductsDetails from './Pages/Admin/Products/ProductsDetails';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -42,60 +43,56 @@ const App = () => {
           element: <Profile />,
         },
         {
+          path: '/products',
+          element: <Products />,
+        },
+        {
+          path: '/product/Details/:id',
+          element: <ProductsDetails />,
+        },
+        {
+          path: '/orders',
+          element: <Orders />,
+        },
+        {
+          path: '/product/add',
+          element: <AddProduct/>
+        },
+        {
+          path: '/product/update',
+          element: <UpdateProduct/>
+        },
+        {
+          path: '/product/delete',
+          element: <DeleteProduct/>
+        },
+        {
+          path: '/categorys',
+          element: <Categorys />,
+        },
+        {
+          path: '/category/add',
+          element: <AddCategory/>
+        },
+        {
+          path: '/category/update',
+          element: <UpdateCategory/>
+        },
+        {
+          path: '/category/delete',
+          element: <DeleteCategory/>
+        },
+        {
+          path: '/category/products/:Name',
+          element: <ProductsCategories/>
+        },
+        {
           path: '*',
           element: <NotFound />,
         },
       ],
     },
-    {
-      element: <AdminRoot />,
-      children: [
-        {
-          path: '/admin/products',
-          element: <Products />,
-        },
-        {
-          path: '/admin/orders',
-          element: <Orders />,
-        },
-        {
-          path: '/admin/profile',
-          element: <Profile />,
-        },
-        {
-          path: '/admin/product/add',
-          element: <AddProduct/>
-        },
-        {
-          path: '/admin/product/update',
-          element: <UpdateProduct/>
-        },
-        {
-          path: '/admin/product/delete',
-          element: <DeleteProduct/>
-        },
-        {
-          path: '/admin/categorys',
-          element: <Categorys />,
-        },
-        {
-          path: '/admin/category/add',
-          element: <AddCategory/>
-        },
-        {
-          path: '/admin/category/update',
-          element: <UpdateCategory/>
-        },
-        {
-          path: '/admin/category/delete',
-          element: <DeleteCategory/>
-        },
-        {
-          path: '/admin/category/products/:Name',
-          element: <ProductsCategories/>
-        },
-      ],
-    },
+   
   ]);
 
   return (
