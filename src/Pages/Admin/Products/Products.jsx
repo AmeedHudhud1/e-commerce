@@ -68,7 +68,7 @@ export default function Products() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3 sidebar-section bg-light p-4 rounded shadow-sm">
-          {role == "Admin" ? (
+          {role == "Admin" && role2 == 'Admin' ? (
             <div>
               <h5 className="mb-4 font-weight-bold text-primary">Products</h5>
               <ul className="list-group">
